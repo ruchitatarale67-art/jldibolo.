@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Will You Be My Sirji?</title>
+  <meta name="description" content="A fun, colorful one‑page site that asks: Can you be my Sirji??" />
+  <style>
+    :root {
+      --bg1: #e0f7fa;
+      --bg2: #fff3e0;
+      --text: #222;
+      --accent: #2196f3;
+      --accent-2: #ff9800;
+      --btn: #111827;
+      --btn-text: #fff;
+      --shadow: 0 10px 30px rgba(0,0,0,.15);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: "Poppins", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color: var(--text);
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      overflow: hidden;
+    }
+
+    .wrap {
+      position: relative;
+      height: 100vh;
+      width: 100vw;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+    }
+
+    .card {
+      position: relative;
+      width: min(720px, 92vw);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: var(--shadow);
+      padding: clamp(20px, 4vw, 40px);
+      text-align: center;
+      border: 2px solid var(--accent);
+      animation: pulseCard 3s infinite;
+    }
+
+    @keyframes pulseCard {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    .sticker {
+      width: clamp(120px, 30vw, 180px);
+      margin: 10px auto;
+      display: block;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,.15));
+    }
+
+    h1 {
+      font-size: clamp(30px, 6vw, 48px);
+      margin: 10px 0 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p.lead {
+      margin: 0 0 18px;
+      font-size: clamp(16px, 3vw, 20px);
+      opacity: .8;
+    }
+
+    .btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    button {
+      cursor: pointer;
+      border: 0;
+      font-size: clamp(14px, 2.6vw, 18px);
+      padding: 14px 28px;
+      border-radius: 999px;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .yes {
+      background: linear-gradient(180deg, var(--accent), #1976d2);
+      color: var(--btn-text);
+      box-shadow: 0 10px 18px rgba(33, 150, 243, .35);
+    }
+    .yes:hover { transform: translateY(-2px) scale(1.05); }
+
+    .no {
+      background: #fff;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      box-shadow: 0 8px 16px rgba(0,0,0,.12);
+      position: relative;
+    }
+
+    .hint {
+      font-size: 12px;
+      opacity: .6;
+      margin-top: 6px;
+    }
+
+    .heart {
+      position: fixed;
+      width: 18px;
+      height: 18px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 30;
+      animation: floatUp 1.6s ease-out forwards;
+    }
+    .heart::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 30% 30%, #fff8, transparent 60%), var(--heartColor, var(--accent));
+      -webkit-clip-path: path("M8 14C8 14 0 9 0 4a4 4 0 0 1 8 0 4 4 0 0 1 8 0c0 5-8 10-8 10Z");
+              clip-path: path("M8 14C8 14 0 9 0 4a4 4 0 0 1 8 0 4 4 0 0 1 8 0c0 5-8 10-8 10Z");
+      border-radius: 4px;
+    }
+    @keyframes floatUp {
+      from { transform: translate(-50%, -20%) scale(.9); opacity: .95; }
+      to   { transform: translate(-50%, -220%) scale(1.3); opacity: 0; }
+    }
+
+    .overlay {
+      position: fixed; inset: 0;
+      display: grid; place-items: center;
+      background: rgba(0,0,0,.6);
+      backdrop-filter: blur(6px);
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s ease;
+      z-index: 40;
+    }
+    .overlay.show { opacity: 1; pointer-events: auto; }
+
+    .celebrate {
+      background: #fff;
+      color: var(--text);
+      border-radius: var(--radius);
+      padding: 28px;
+      width: min(640px, 92vw);
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 2px solid var(--accent-2);
+      animation: pop .4s ease;
+    }
+    @keyframes pop { from { transform: scale(.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .celebrate h2 { margin: 0 0 6px; font-size: clamp(24px, 4vw, 36px); color: var(--accent-2); }
+    .celebrate p { margin: 0 0 14px; opacity: .85; }
+    .celebrate .ok { background: var(--accent); color: #fff; border: 0; padding: 10px 18px; border-radius: 999px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <main class="card" role="dialog" aria-labelledby="title" aria-describedby="desc">
+      <svg class="sticker" viewBox="0 0 120 120" aria-hidden="true">
+        <defs>
+          <radialGradient id="g" cx="30%" cy="30%" r="80%">
+            <stop offset="0%" stop-color="#fff"/>
+            <stop offset="100%" stop-color="#bbdefb"/>
+          </radialGradient>
+        </defs>
+        <circle cx="60" cy="60" r="56" fill="url(#g)" stroke="#111" stroke-width="2"/>
+        <circle cx="42" cy="50" r="6" fill="#111"/>
+        <circle cx="78" cy="50" r="6" fill="#111"/>
+        <path d="M40 78c12 10 28 10 40 0" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+        <path d="M18 88c10 10 84 10 94 0" fill="none" stroke="#111" stroke-opacity=".08" stroke-width="6"/>
+        <g transform="translate(60 18)">
+          <path d="M0 0c8-12 26-10 28 4 2 12-12 20-20 26-8-6-22-14-20-26C-10-10 8-12 0 0Z" fill="#2196f3" stroke="#111" stroke-width="2"/>
+        </g>
+      </svg>
+
+      <h1 id="title">Can you be my Sirji??</h1>
+      <p id="desc" class="lead">Come on, say yes! I made it extra colorful just for you ✨</p>
+
+      <div class="btns">
+        <button class="yes" aria-label="Yes">Yes 🚀</button>
+        <button class="no" aria-label="No">No 🙈</button>
+      </div>
+      <div class="hint" aria-hidden="true">Tip: The “No” button doesn’t really like being clicked 😜</div>
+    </main>
+  </div>
+
+  <div class="overlay" id="overlay" role="alertdialog" aria-modal="true" aria-labelledby="yay-title">
+    <div class="celebrate">
+      <h2 id="yay-title">Woohoo! 🎉</h2>
+      <p>You just made the best choice ever. Let’s plan something epic!</p>
+      <button class="ok" id="okBtn">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const yesBtn = document.querySelector('.yes');
+    const noBtn = document.querySelector('.no');
+    const overlay = document.getElementById('overlay');
+    const okBtn = document.getElementById('okBtn');
+
+    let evasive = false;
+    function randomBetween(min, max) { return Math.random() * (max - min) + min; }
+
+    function moveNoButton() {
+      const wrap = document.querySelector('.wrap');
+      const rect = wrap.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+      const padding = 12;
+      const maxX = rect.width - btnRect.width - padding;
+      const maxY = rect.height - btnRect.height - padding;
+      const x = randomBetween(padding, Math.max(padding, maxX));
+      const y = randomBetween(padding, Math.max(padding, maxY));
+      Object.assign(noBtn.style, { position: 'fixed', left: `${x}px`, top: `${y}px`, transform: 'translate(0,0)' });
+    }
+
+    noBtn.addEventListener('pointerenter', () => { evasive = true; moveNoButton(); });
+    noBtn.addEventListener('pointerdown', (e) => {
+      if (!evasive) { evasive = true; moveNoButton(); }
+      else moveNoButton();
+      e.preventDefault();
+    });
+
+    function spawnHeart(x, y) {
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.style.left = x + 'px';
+      h.style.top = y + 'px';
+      h.style.setProperty('--heartColor', Math.random() > .5 ? '#2196f3' : '#ff9800');
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 1800);
+    }
+
+    function burstHearts(count = 24) {
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      for (let i = 0; i < count; i++) {
+        const angle = (i / count) * Math.PI * 2;
+        const r = 80 + Math.random() * 80;
+        const x = centerX + Math.cos(angle) * r + (Math.random() * 30 - 15);
+        const y = centerY + Math.sin(angle) * r + (Math.random() * 30 - 15);
+        setTimeout(() => spawnHeart(x, y), i * 20);
+      }
+    }
+
+    yesBtn.addEventListener('click', () => {
+      overlay.classList.add('show');
+      burstHearts(40);
+      yesBtn.blur();
+    });
+
+    okBtn.addEventListener('click', () => overlay.classList.remove('show'));
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') overlay.classList.remove('show'); });
+    window.addEventListener('resize', () => { if (evasive) moveNoButton(); });
+  </script>
+</body>
+</html>
